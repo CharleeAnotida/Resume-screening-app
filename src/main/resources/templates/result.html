@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="result-page">
+
+<div class="overlay result-box">
+
+<h2>Resume Analysis Result</h2>
+
+<p><b>Name:</b> <span th:text="${name}"></span></p>
+
+<p><b>File:</b> <span th:text="${fileName}"></span></p>
+
+<p><b>Detected Skills:</b> <span th:text="${skills}"></span></p>
+
+<p><b>Score:</b> <span th:text="${score}"></span>%</p>
+
+<p><b>Suggestion:</b> <span th:text="${suggestion}"></span></p>
+
+<br>
+<a href="/">⬅ Go Back</a>
+
+</div>
+
+</body>
+</html>

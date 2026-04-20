@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Scanner</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- LEFT SIDE -->
+    <div class="viewer-section">
+        <h2>Resume Viewer</h2>
+        <iframe id="resumeFrame"></iframe>
+        <div id="scanLine"></div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="result-section">
+
+        <h2>Upload Resume</h2>
+
+        <form id="uploadForm">
+            <input type="text" id="name" placeholder="Enter Name" required>
+            <input type="file" id="file" accept=".pdf,.docx" required>
+            <button type="submit">Scan Resume</button>
+        </form>
+
+        <div id="loading">🔍 Scanning Resume...</div>
+
+        <div id="results" style="display:none;">
+            <h3>Results</h3>
+            <p><b>Score:</b> <span id="score"></span></p>
+            <p><b>Skills:</b> <span id="skills"></span></p>
+            <p><b>Missing:</b> <span id="missing"></span></p>
+            <p><b>Suggestion:</b> <span id="suggestion"></span></p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("uploadForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const fileInput = document.getElementById("file").files[0];
+
+    if (!fileInput) return;
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("file", fileInput);
+
+    const fileURL = URL.createObjectURL(fileInput);
+    document.getElementById("resumeFrame").src = fileURL;
+
+    document.getElementById("loading").style.display = "block";
+
+    startScanAnimation();
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("results").style.display = "block";
+
+        document.getElementById("score").innerText = data.score;
+        document.getElementById("skills").innerText = data.skills;
+        document.getElementById("missing").innerText = data.missing;
+        document.getElementById("suggestion").innerText = data.suggestion;
+    });
+});
+
+function startScanAnimation() {
+    const line = document.getElementById("scanLine");
+    line.style.display = "block";
+    line.style.animation = "scan 3s linear";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+
+.main-container {
+    display: flex;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+
+.viewer-section {
+    width: 50%;
+    position: relative;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+
+.result-section {
+    width: 50%;
+    padding: 30px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+}
+
+
+iframe {
+    width: 100%;
+    height: 90%;
+    border: none;
+    border-radius: 10px;
+}
+
+
+#scanLine {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: lime;
+    display: none;
+    box-shadow: 0 0 15px lime;
+}
+
+
+@keyframes scan {
+    0% { top: 0; }
+    100% { top: 90%; }
+}
+
+
+input, button {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+button {
+    background: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#loading {
+    display: none;
+    margin-top: 20px;
+}
+
+
+#results {
+    margin-top: 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
